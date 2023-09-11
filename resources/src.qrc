@@ -1,0 +1,40 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/bfzn_001.png</file>
+        <file>images/bfzn_002.png</file>
+        <file>images/bfzn_003.png</file>
+        <file>images/bfzn_004.png</file>
+        <file>images/bfzn_005.png</file>
+        <file>images/bfzn_006.png</file>
+        <file>images/bfzn_007.png</file>
+        <file>images/choufeng.png</file>
+        <file>images/chushi.png</file>
+        <file>images/didang.png</file>
+        <file>images/gaodang.png</file>
+        <file>images/last.png</file>
+        <file>images/minus.png</file>
+        <file>images/next.png</file>
+        <file>images/off.png</file>
+        <file>images/on.png</file>
+        <file>images/open.png</file>
+        <file>images/plus.png</file>
+        <file>images/power.png</file>
+        <file>images/smartHome.ico</file>
+        <file>images/smarthome.png</file>
+        <file>images/songfeng.png</file>
+        <file>images/sound0.png</file>
+        <file>images/sound1.png</file>
+        <file>images/sound2.png</file>
+        <file>images/sound3.png</file>
+        <file>images/start.png</file>
+        <file>images/stop.png</file>
+        <file>images/switch_off.png</file>
+        <file>images/switch_on.png</file>
+        <file>images/timg.jfif</file>
+        <file>images/voice_close.png</file>
+        <file>images/voice_open.png</file>
+        <file>images/zhaoming.png</file>
+        <file>images/zhileng.png</file>
+        <file>images/zhire.png</file>
+    </qresource>
+</RCC>
