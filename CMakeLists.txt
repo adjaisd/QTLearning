@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
-project(test C CXX)
+project(QTLearning C CXX)
 set(CMAKE_C_STANDARD   23 CACHE INTERNAL "CMAKE_C_STANDARD")
 set(CMAKE_CXX_STANDARD 23 CACHE INTERNAL "CMAKE_CXX_STANDARD")
 

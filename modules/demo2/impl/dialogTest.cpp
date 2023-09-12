@@ -1,6 +1,5 @@
 #include "dialogTest.h"
 
-
 DialogTest::DialogTest(QWidget *parent) :
         QWidget(parent) {
     setWindowTitle("测试DialogTest.exe");
@@ -36,8 +35,8 @@ DialogTest::DialogTest(QWidget *parent) :
 }
 
 void DialogTest::slot_getFileName() {
-    QString pathName = QFileDialog::getOpenFileName(this, "文件对话框", "../../","C++ head(*.h);;source(*.cpp);;all file(*"
-                                                                          ".*)");
+    QString pathName =
+            QFileDialog::getOpenFileName(this, "文件对话框", "../../", "C++ head(*.h);;source(*.cpp);;all file(*.*)");
     qDebug() << pathName << Qt::endl;
     // trimmed: 去掉空格
     if (pathName.trimmed().isDetached()) return;
@@ -47,12 +46,12 @@ void DialogTest::slot_getFileName() {
 void DialogTest::slot_getFont() {
     bool ok;
     QFont font = QFontDialog::getFont(&ok);
-    if(ok) font_edit->setFont(font);
+    if (ok) font_edit->setFont(font);
 }
 
 void DialogTest::slot_getColor() {
     QColor color = QColorDialog::getColor(Qt::red, this);
-    if(color.isValid()) {
+    if (color.isValid()) {
         // 设置颜色
         color_frame->setPalette(QPalette(color));
     }
