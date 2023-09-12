@@ -45,7 +45,7 @@ PosSizeGui::PosSizeGui(QWidget *parent) : QDialog(parent) {
     gridLayout->addWidget(wh_label, 8, 1);
 }
 
-PosSizeGui::~PosSizeGui() = default;
+PosSizeGui::~PosSizeGui() noexcept = default;
 
 void PosSizeGui::update_label() {
     QString xstr = QString::number(this->x());

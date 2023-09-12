@@ -57,4 +57,4 @@ void DialogTest::slot_getColor() {
     }
 }
 
-DialogTest::~DialogTest() = default;
+DialogTest::~DialogTest() noexcept = default;

@@ -9,12 +9,13 @@
 #include <QColorDialog>
 #include <QWidget>
 
-class DialogTest: public QWidget {
-    Q_OBJECT
-public:
-    explicit DialogTest(QWidget *parent= nullptr);
+class DialogTest : public QWidget {
+Q_OBJECT
 
-    ~DialogTest() override;
+public:
+    explicit DialogTest(QWidget *parent = nullptr);
+
+    ~DialogTest() noexcept override;
 
 public:
     QLineEdit *file_edit;
@@ -22,8 +23,11 @@ public:
     QFrame *color_frame;
 
 public slots:
+
     void slot_getFileName();
+
     void slot_getFont();
+
     void slot_getColor();
 };
 

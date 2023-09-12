@@ -7,9 +7,9 @@
 
 class PosSizeGui : public QDialog {
 public:
-    explicit PosSizeGui(QWidget *parent = 0);
+    explicit PosSizeGui(QWidget *parent = nullptr);
 
-    ~PosSizeGui();
+    ~PosSizeGui() noexcept override;
 
     QLabel *x_label{};
     QLabel *y_label{};
@@ -24,11 +24,16 @@ public:
     void update_label();
 
 public slots:
+
     //重写事件处理函数，当相应的事件发生时，自动调用
     void moveEvent(QMoveEvent *) override;
+
     void resizeEvent(QResizeEvent *) override;
+
     void keyPressEvent(QKeyEvent *) override;
+
     void showEvent(QShowEvent *) override;
+
     void closeEvent(QCloseEvent *) override;
 };
 
