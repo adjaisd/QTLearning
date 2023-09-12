@@ -22,4 +22,5 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/bin)
 
 add_subdirectory(modules/demo1) # WinServer
-
+add_subdirectory(modules/demo2) # 0911
+add_subdirectory(modules/demo3) # 0911

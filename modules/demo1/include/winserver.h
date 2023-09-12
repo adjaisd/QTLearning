@@ -1,5 +1,5 @@
-#ifndef TEST_WINSERVER_H
-#define TEST_WINSERVER_H
+#ifndef WINSERVER_H
+#define WINSERVER_H
 
 #include <QWidget>
 #include <QTcpSocket>
@@ -47,4 +47,4 @@ private:
     Ui::WinServer *ui;
 };
 
-#endif //TEST_WINSERVER_H
+#endif //WINSERVER_H
