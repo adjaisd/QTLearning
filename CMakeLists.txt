@@ -26,3 +26,4 @@ add_subdirectory(modules/demo2) # 0911
 add_subdirectory(modules/demo3) # 0911
 add_subdirectory(modules/demo4) # 0912
 add_subdirectory(modules/demo5) # 0912
+add_subdirectory(modules/demo6) # 0912
