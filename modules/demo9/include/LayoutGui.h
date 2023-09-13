@@ -27,7 +27,7 @@ public:
 public slots:
   void slot_changeHead();
 private:
-  QLabel *avatar_label;
+  QLabel *avatar;
 };
 
 #endif // LAYOUTGUI_H

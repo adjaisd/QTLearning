@@ -2,7 +2,6 @@
 
 LayoutGui::LayoutGui(QWidget *parent) : QWidget(parent) {
   setWindowTitle("layoutGui示例");
-
   // 上部分左边布局
   // 姓名
   auto *name_label = new QLabel("姓名");
@@ -11,13 +10,10 @@ LayoutGui::LayoutGui(QWidget *parent) : QWidget(parent) {
   // 性别
   auto sex_label = new QLabel("性别");
   auto sex_radio_1 = new QRadioButton("男");
-  // 可选中
-  sex_radio_1->setCheckable(true);
-  // 默认选中
-  sex_radio_1->setChecked(true);
-
   auto sex_radio_2 = new QRadioButton("女");
+  sex_radio_1->setCheckable(true); // 可选中
   sex_radio_2->setCheckable(true);
+  sex_radio_1->setChecked(true); // 默认选中
 
   // 性别的单选按钮为一组
   auto sex_group = new QButtonGroup;
@@ -38,12 +34,12 @@ LayoutGui::LayoutGui(QWidget *parent) : QWidget(parent) {
   age_spinBox->setValue(18);
 
   // 生日
-  auto bdate_label = new QLabel("生日");
-  auto bdate_edit = new QDateEdit;
-  bdate_edit->setDisplayFormat("yyyy-MM-dd");
+  auto birthDate_label = new QLabel("生日");
+  auto birthDate_edit = new QDateEdit;
+  birthDate_edit->setDisplayFormat("yyyy-MM-dd");
   // 日历自动弹出
-  bdate_edit->setCalendarPopup(true);
-  bdate_edit->setDate(QDate::currentDate());
+  birthDate_edit->setCalendarPopup(true);
+  birthDate_edit->setDate(QDate::currentDate());
 
   // 学历
   auto degree_label = new QLabel("学历");
@@ -89,8 +85,8 @@ LayoutGui::LayoutGui(QWidget *parent) : QWidget(parent) {
   left_gridLayout->addWidget(age_label, 2, 0);
   left_gridLayout->addWidget(age_spinBox, 2, 1);
 
-  left_gridLayout->addWidget(bdate_label, 3, 0);
-  left_gridLayout->addWidget(bdate_edit, 3, 1);
+  left_gridLayout->addWidget(birthDate_label, 3, 0);
+  left_gridLayout->addWidget(birthDate_edit, 3, 1);
 
   left_gridLayout->addWidget(degree_label, 3, 0);
   left_gridLayout->addWidget(degree_comboBox, 4, 1);
@@ -105,25 +101,25 @@ LayoutGui::LayoutGui(QWidget *parent) : QWidget(parent) {
 
   // 上部分右边布局
   // 头像
-  auto head_label = new QLabel("头像");
-  avatar_label = new QLabel;
-  avatar_label->setPixmap(QPixmap(":/images/3.png"));
+  auto avatar_label = new QLabel("头像");
+  avatar = new QLabel;
+  avatar->setPixmap(QPixmap(":/images/3.png"));
 
-  auto head_button = new QPushButton("修改头像");
+  auto avatar_button = new QPushButton("修改头像");
 
-  connect(head_button, SIGNAL(clicked(bool)), this, SLOT(slot_changeHead()));
+  connect(avatar_button, SIGNAL(clicked(bool)), this, SLOT(slot_changeHead()));
 
-  auto head_hLayout = new QHBoxLayout;
-  head_hLayout->addWidget(avatar_label);
-  head_hLayout->addWidget(head_label);
-  head_hLayout->addWidget(head_button);
+  auto avatar_hLayout = new QHBoxLayout;
+  avatar_hLayout->addWidget(avatar);
+  avatar_hLayout->addWidget(avatar_label);
+  avatar_hLayout->addWidget(avatar_button);
 
   // 介绍
   auto intro_label = new QLabel("介绍");
   auto intro_edit = new QTextEdit;
 
   auto right_layout = new QVBoxLayout;
-  right_layout->addLayout(head_hLayout);
+  right_layout->addLayout(avatar_hLayout);
   right_layout->addWidget(intro_label);
   right_layout->addWidget(intro_edit);
 
@@ -151,7 +147,7 @@ LayoutGui::~LayoutGui() noexcept = default;
 void LayoutGui::slot_changeHead() {
   auto path =
       QFileDialog::getOpenFileName(this, "选择头像", "../../", "头像(*.png)");
-  if (!path.trimmed().isEmpty()){
-    avatar_label->setPixmap(QPixmap(path));
+  if (!path.trimmed().isEmpty()) {
+    avatar->setPixmap(QPixmap(path));
   }
 }
