@@ -23,6 +23,7 @@ public:
   ~ItemGui() noexcept override;
 
 public slots:
+  void slot_clear();
   void slot_addEllipse();
   void slot_addText();
   void slot_addPixmap();

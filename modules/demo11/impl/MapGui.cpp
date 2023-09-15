@@ -55,7 +55,7 @@ MapGui::MapGui(QWidget *parent) : QGraphicsView(parent) {
   map_vLayout->addLayout(gLayout);
   map_vLayout->addStretch();
 
-  //5.加入水平布局
+  // 5.加入水平布局
   auto hLayout = new QHBoxLayout(this);
   hLayout->addLayout(slider_vLayout);
   hLayout->addLayout(map_vLayout);
@@ -70,10 +70,10 @@ void MapGui::loadMap() {
   if (file.open(QIODevice::ReadOnly)) {
     QTextStream stream(&file);
     if (!stream.atEnd()) {
+      stream >> mapPath;
+      stream >> x1 >> y1;
+      stream >> x2 >> y2;
     }
-    stream >> mapPath;
-    stream >> x1 >> y1;
-    stream >> x2 >> y2;
   }
   file.close();
   pixmap.load(mapPath);
