@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>sounds/bong.wav</file>
+        <file>sounds/fail.wav</file>
+        <file>sounds/start2.wav</file>
+    </qresource>
+</RCC>
