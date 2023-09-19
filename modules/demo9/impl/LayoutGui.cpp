@@ -4,7 +4,7 @@ LayoutGui::LayoutGui(QWidget *parent) : QWidget(parent) {
   setWindowTitle("layoutGui示例");
   // 上部分左边布局
   // 姓名
-  auto *name_label = new QLabel("姓名");
+  auto name_label = new QLabel("姓名");
   auto name_edit = new QLineEdit;
 
   // 性别
@@ -70,7 +70,7 @@ LayoutGui::LayoutGui(QWidget *parent) : QWidget(parent) {
   hobby_qhBoxLayout->addWidget(hobby_checkBox_3);
 
   // 详细资料
-  auto *detail_label = new QLabel("详细资料");
+  auto detail_label = new QLabel("详细资料");
   detail_label->setAlignment(Qt::AlignTop);
   auto detail_edit = new QTextEdit;
   auto mark_label = new QLabel("备注");

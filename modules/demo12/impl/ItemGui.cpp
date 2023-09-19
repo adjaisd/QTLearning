@@ -1,6 +1,4 @@
 #include "ItemGui.h"
-#include "FlashItem.h"
-#include "PosItem.h"
 
 ItemGui::ItemGui(QWidget *parent) : QMainWindow(parent) {
   setWindowTitle("ItemGui");

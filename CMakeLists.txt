@@ -40,3 +40,4 @@ add_subdirectory(modules/demo15) # 0916
 add_subdirectory(modules/demo16) # 0916
 add_subdirectory(modules/demo17) # 0916
 add_subdirectory(modules/demo18) # 0916
+add_subdirectory(practice/MineClearance) # 扫雷

@@ -1,6 +1,8 @@
 #ifndef ITEMGUI_H
 #define ITEMGUI_H
 
+#include "FlashItem.h"
+#include "PosItem.h"
 #include <QAction>
 #include <QDebug>
 #include <QGraphicsEllipseItem>

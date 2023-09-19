@@ -12,16 +12,16 @@ DialogTest::DialogTest(QWidget *parent) :
     color_frame->setAutoFillBackground(true);
 
     // 按钮
-    auto *file_button = new QPushButton("文件");
-    auto *font_button = new QPushButton("字体");
-    auto *color_button = new QPushButton("颜色");
+    auto file_button = new QPushButton("文件");
+    auto font_button = new QPushButton("字体");
+    auto color_button = new QPushButton("颜色");
 
     connect(file_button, SIGNAL(clicked(bool)), this, SLOT(slot_getFileName()));
     connect(font_button, SIGNAL(clicked(bool)), this, SLOT(slot_getFont()));
     connect(color_button, SIGNAL(clicked(bool)), this, SLOT(slot_getColor()));
 
     //网格布局
-    auto *gridLayout = new QGridLayout(this);
+    auto gridLayout = new QGridLayout(this);
 
     //第一行
     gridLayout->addWidget(file_button, 0, 0);

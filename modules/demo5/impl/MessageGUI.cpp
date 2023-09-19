@@ -7,16 +7,16 @@ MessageGUI::MessageGUI(QWidget *parent) : QDialog(parent) {
   message_label = new QLabel;
   message_label->setAlignment(Qt::AlignCenter); // 居中显示
 
-  auto *question_button = new QPushButton("question");
-  auto *information_button = new QPushButton("information");
-  auto *warning_button = new QPushButton("warning");
-  auto *critical_button = new QPushButton("critical");
-  auto *about_button = new QPushButton("about_button");
-  auto *aboutQt_button = new QPushButton("aboutQt");
-  auto *custom_button = new QPushButton("custom");
+  auto question_button = new QPushButton("question");
+  auto information_button = new QPushButton("information");
+  auto warning_button = new QPushButton("warning");
+  auto critical_button = new QPushButton("critical");
+  auto about_button = new QPushButton("about_button");
+  auto aboutQt_button = new QPushButton("aboutQt");
+  auto custom_button = new QPushButton("custom");
 
   // 垂直布局
-  auto *gridLayout = new QGridLayout;
+  auto gridLayout = new QGridLayout;
   gridLayout->addWidget(question_button, 0, 0);
   gridLayout->addWidget(information_button, 0, 1);
   gridLayout->addWidget(warning_button, 1, 0);
@@ -25,7 +25,7 @@ MessageGUI::MessageGUI(QWidget *parent) : QDialog(parent) {
   gridLayout->addWidget(aboutQt_button, 2, 1);
   gridLayout->addWidget(custom_button, 3, 0);
 
-  auto *verticalLayout = new QVBoxLayout;
+  auto verticalLayout = new QVBoxLayout;
   verticalLayout->addWidget(message_label);
   verticalLayout->addLayout(gridLayout);
 
@@ -94,7 +94,7 @@ void MessageGUI::slot_aboutQt() {
 }
 
 void MessageGUI::slot_custom() {
-  auto *custom = new QMessageBox(this);
+  auto custom = new QMessageBox(this);
   custom->setWindowTitle(tr("custom message box"));
   custom->setText(tr("this is custom message box"));
   custom->setIconPixmap(QPixmap(":/images/linuxredhat.png"));

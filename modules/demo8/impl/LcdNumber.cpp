@@ -22,7 +22,7 @@ LcdNumber::LcdNumber(QWidget *parent) : QLCDNumber(parent) {
   isShow = true;
 
   // 定时器
-  auto *timer = new QTimer;
+  auto timer = new QTimer;
   connect(timer, SIGNAL(timeout()), this, SLOT(slot_showTime()));
   // 每隔500毫秒发送timeout信号
   timer->start(500);
