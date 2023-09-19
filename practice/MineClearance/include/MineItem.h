@@ -7,7 +7,6 @@
 #include <QGraphicsSceneEvent>
 #include <QMessageBox>
 #include <QObject>
-#include <QSoundEffect>
 #include <QWidget>
 
 class MineItem : public QObject, public QGraphicsPixmapItem {

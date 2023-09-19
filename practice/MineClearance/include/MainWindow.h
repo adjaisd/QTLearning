@@ -19,8 +19,6 @@
 #include <QPushButton>
 #include <QSettings>
 #include <QSoundEffect>
-#include <QTextEdit>
-#include <QTextStream>
 #include <QTime>
 #include <QTimer>
 

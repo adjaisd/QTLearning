@@ -6,12 +6,7 @@
 MineItem::MineItem(int t_x, int t_y, const QPixmap &itemPixmap,
                    QGraphicsItem *parent)
     : m_X(t_x), m_Y(t_y), QGraphicsPixmapItem(parent) {
-  qDebug() << "MineItem";
-  m_isMine = false;
-  m_isOpened = false;
-  m_isRightMouse = false;
-  m_aroundMineNum = 0;
-  m_rMouseKeyNum = 0;
+  // qDebug() << "MineItem";
   setPixmap(itemPixmap);
 }
 
@@ -83,11 +78,8 @@ void MineItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
       setPixmap(QPixmap(":/images/bong/0.png")
                     .scaled(MAPWIDTH, MAPHEIGHT,
                             Qt::KeepAspectRatio)); // 设置为雷的图片
-      if (mineScene->m_soundOpen) { // 如果声音打开，则播放声音
-        auto sound = QSoundEffect();
-        sound.setSource(QUrl::fromLocalFile(":/sounds/bong.wav"));
-        sound.play();
-      }
+      if (mineScene->m_soundOpen) // 如果声音打开，则播放声音
+        playMusic(":/sounds/bong.wav");
       // 打开所有方块，并设置游戏结束
       mineScene->openAllItems();
       mineScene->m_isGameOver = true;
@@ -115,14 +107,11 @@ void MineItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     mineScene->m_remainNoMines--;
     if (mineScene->m_remainNoMines == 0) { // 如果场景中非雷数为0
       // 设置游戏结束，如果声音打开，则播放声音
-      mineScene->m_isGameOver = true;
-      if (mineScene->m_soundOpen) {
-        auto sound = QSoundEffect();
-        sound.setSource(QUrl::fromLocalFile(":/sounds/win.wav"));
-        sound.play();
-      }
+      if (mineScene->m_soundOpen)
+        playMusic(":/sounds/win.wav");
       // 打开所有方块，发送场景的成功过关信号
       mineScene->openAllItems();
+      mineScene->m_isGameOver = true;
       emit mineScene->sig_successPassGame();
     }
   }

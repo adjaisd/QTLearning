@@ -1,4 +1,4 @@
-//公共数据
+// 公共数据
 #ifndef COMMON_H
 #define COMMON_H
 
@@ -12,5 +12,10 @@ enum middleset { MIDDLEROWANDCOL = 16, MIDDLEMINENUM = 40 };
 enum heightset { HIGHROW = 16, HIGHCOL = 30, HIGHMINENUM = 99 };
 // 5. 图片大小设置
 enum mapset { MAPWIDTH = 25, MAPHEIGHT = 25 };
+
+#include <QSoundEffect>
+#include <QString>
+
+void playMusic(const QString &path);
 
 #endif // COMMON_H

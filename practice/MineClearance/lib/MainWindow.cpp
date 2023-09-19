@@ -118,6 +118,7 @@ void MainWindow::slot_newGame() {
   m_timer->start(1000);
   // 13.初始化场景,启动定时器
   mineScene->initScene();
+  slot_soundChanged();
 }
 
 /*
@@ -427,11 +428,8 @@ void MainWindow::slot_displayTime() {
   if (!mineScene->m_isGameOver) {
     // 当前游戏用时加 1,并显示，如果场景为声音打开和声音行为被选中，则播放声音
     timeLcd->display(++m_time);
-    if (mineScene->m_soundOpen && soundAction->isChecked()) {
-      auto sound = QSoundEffect();
-      sound.setSource(QUrl::fromLocalFile(":/sounds/time.wav"));
-      sound.play();
-    }
+    if (mineScene->m_soundOpen && soundAction->isChecked())
+      playMusic(":/sounds/time.wav");
   } else {
     // 如果游戏结束，则停止计时器
     m_timer->stop();
