@@ -165,7 +165,7 @@ void MainWindow::create_action() {
   connect(colorAction, SIGNAL(triggered(bool)), this,
           SLOT(slot_colorChanged()));
   soundAction = new QAction("声音");
-  soundAction->setCheckable(true);
+  soundAction->setCheckable(false);
   connect(soundAction, SIGNAL(triggered(bool)), this,
           SLOT(slot_soundChanged()));
 
@@ -328,6 +328,7 @@ void MainWindow::slot_soundChanged() {
     soundAction->setChecked(true);
     mineScene->m_soundOpen = true;
   }
+  qDebug() << "m_soundOpen = " << mineScene->m_soundOpen;
 }
 
 /*

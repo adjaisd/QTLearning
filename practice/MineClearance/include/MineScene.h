@@ -7,6 +7,7 @@
 #include "common.h"
 #include <QGraphicsScene>
 #include <QWidget>
+#include <QPixmap>
 
 class MineItem;
 class MainWindow;

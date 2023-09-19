@@ -40,7 +40,10 @@ void MineScene::initScene() {
     // 加入到总 vector中
     QVector<MineItem *> itemVec;
     for (int j = 0; j < m_sceneCol; ++j) {
-      auto item = new MineItem(i, j, QPixmap(":/images/mine1_0.png"));
+      auto item =
+          new MineItem(i, j,
+                       QPixmap(":/images/mine1_0.png")
+                           .scaled(MAPWIDTH, MAPHEIGHT, Qt::KeepAspectRatio));
       item->setPos(j * MAPWIDTH, i * MAPHEIGHT);
       addItem(item);
       itemVec.push_back(item);
@@ -48,7 +51,7 @@ void MineScene::initScene() {
     m_itemVec.push_back(itemVec);
   }
   // 3.根据雷数循环随机布雷
-  srand(time(NULL));
+  srand(time(nullptr));
   for (int i = 0; i < m_mineNum; ++i) {
     // 4.随机产生一个坐标
     int tx = rand() % m_sceneRow;
@@ -58,7 +61,7 @@ void MineScene::initScene() {
     if (!item->m_isMine) {
       item->m_isMine = true;
       // qDebug() << "m_sceneRow = " << m_sceneRow << "\tm_sceneCol=" <<
-      m_sceneCol;
+      // m_sceneCol;
       countAroundMines(item);
     } else {
       i--;
@@ -135,12 +138,14 @@ void MineScene::openAllItems() {
       auto item = m_itemVec[i][j];
       item->m_isOpened = true;
       if (item->m_isMine) { // 3.如果是雷则将方块图片设置为雷图片
-        item->setPixmap(QPixmap(":/images/bong/0.png"));
+        item->setPixmap(QPixmap(":/images/bong/0.png")
+                            .scaled(MAPWIDTH, MAPHEIGHT, Qt::KeepAspectRatio));
       } else {
         // 4.如果不是雷则将方块图片设置为方块周围雷数所对应图片
         auto picPath =
             ":/images/mine1_" + QString::number(item->m_aroundMineNum) + ".png";
-        item->setPixmap(picPath);
+        item->setPixmap(
+            QPixmap(picPath).scaled(MAPWIDTH, MAPHEIGHT, Qt::KeepAspectRatio));
       }
     }
   }
@@ -189,26 +194,29 @@ void MineScene::expandWater(MineItem *t_item) {
     m_remainNoMines--;
     // 8.如果所找方块周围雷数为 0，则设置相应图片，并递归查找
     if (nxtItem->m_aroundMineNum == 0) {
-      nxtItem->setPixmap(QPixmap(":/images/mine0_0.png"));
+      nxtItem->setPixmap(QPixmap(":/images/mine0_0.png")
+                             .scaled(MAPWIDTH, MAPHEIGHT, Qt::KeepAspectRatio));
+      // nxtItem->setPixmap(QPixmap(":/images/mine0_0.png"));
       expandWater(nxtItem);
     } else {
       // 9.如果所找方块周围雷数不为0,则设置所找方块的图片为所找方块的周围雷数对应图片
       auto picPath = ":/images/mine1_" +
                      QString::number(nxtItem->m_aroundMineNum) + ".png";
-      nxtItem->setPixmap(QPixmap(picPath));
+      nxtItem->setPixmap(
+          QPixmap(picPath).scaled(MAPWIDTH, MAPHEIGHT, Qt::KeepAspectRatio));
     }
   }
   // 10.如果当前剩余非雷数为 0
   if (m_remainNoMines == 0) {
+    // 12.打开所有雷
+    openAllItems();
     // 11.设置当前游戏结束，如果声音打开，则播放声音
-    m_isGameOver = true;
     if (m_soundOpen) {
       auto sound = QSoundEffect();
       sound.setSource(QUrl::fromLocalFile(":/sounds/win.wav"));
       sound.play();
     }
-    // 12.打开所有雷
-    openAllItems();
+    m_isGameOver = true;
     // 13.发送成功过关的信号
     emit sig_successPassGame();
   }
