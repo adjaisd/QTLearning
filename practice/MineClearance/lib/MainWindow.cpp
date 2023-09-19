@@ -233,21 +233,16 @@ void MainWindow::create_menu() {
  */
 void MainWindow::writeSettings() {
   qDebug() << "writeSettings";
-  int mineNum = mineScene->m_mineNum;
-  int row = mineScene->m_sceneRow;
-  int col = mineScene->m_sceneCol;
-  int level = mineScene->m_currentLevel;
-
-  qDebug() << "row = " << row << "\t"
-           << "col = " << col << "\t"
-           << "level = " << level << "\t"
-           << "mineNum = " << mineNum;
+  qDebug() << "row = " << mineScene->m_sceneRow << "\t"
+           << "col = " << mineScene->m_sceneCol << "\t"
+           << "level = " << mineScene->m_currentLevel << "\t"
+           << "mineNum = " << mineScene->m_mineNum;
   auto settings = new QSettings("MineOrg", "MineClearance", this);
   settings->beginGroup("level");
-  settings->setValue("row", row);
-  settings->setValue("col", col);
-  settings->setValue("mineNum", mineNum);
-  settings->setValue("level", level);
+  settings->setValue("row", mineScene->m_sceneRow);
+  settings->setValue("col", mineScene->m_sceneCol);
+  settings->setValue("mineNum", mineScene->m_mineNum);
+  settings->setValue("level", mineScene->m_currentLevel);
   settings->endGroup();
 }
 
@@ -283,13 +278,17 @@ void MainWindow::slot_newGameByLevel(QAction *action) {
     mineScene->m_currentLevel = HIGHLEVEL;
   } else if (action == customAction) {
     qDebug() << "customAction";
+    m_timer->stop();
     CustomGameDialog customGameDialog(this);
     connect(&customGameDialog, SIGNAL(signal_sendCustomSet(int, int, int)),
             this, SLOT(slot_acceptCustomVal(int, int, int)));
     customGameDialog.exec();
+    m_timer->start(1000);
   }
-  writeSettings();
-  slot_newGame();
+  if (action != customAction) {
+    writeSettings();
+    slot_newGame();
+  }
 }
 
 /*
@@ -307,6 +306,8 @@ void MainWindow::slot_acceptCustomVal(int row, int col, int mineNum) {
   mineScene->m_sceneRow = row;
   mineScene->m_sceneCol = col;
   mineScene->m_currentLevel = CUSTOMLEVEL;
+  writeSettings();
+  slot_newGame();
 }
 
 void MainWindow::slot_colorChanged() { qDebug() << "slot_colorChanged"; }
@@ -337,9 +338,10 @@ void MainWindow::slot_soundChanged() {
  */
 void MainWindow::slot_heroChecked() {
   qDebug() << "slot_heroChecked";
+  m_timer->stop();
   HeroDialog heroDialog(this);
-  heroDialog.init_heroRecord();
   heroDialog.exec();
+  m_timer->start(1000);
 }
 
 /*
@@ -390,7 +392,7 @@ void MainWindow::slot_updateHero() {
       if (!ok || name.trimmed().isEmpty())
         name = "匿名";
       heroSettings->setValue(name_key, name);
-      heroSettings->setValue(time_key, time);
+      heroSettings->setValue(time_key, m_time);
     }
     heroSettings->endGroup();
   }
