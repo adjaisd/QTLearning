@@ -7,6 +7,7 @@
 QSoundEffect *MainWindow::timeSound = new QSoundEffect;
 QSoundEffect *MainWindow::winSound = new QSoundEffect;
 QSoundEffect *MainWindow::bongSound = new QSoundEffect;
+int MainWindow::count = 0;
 
 int main(int argc, char *argv[]) {
   QApplication a(argc, argv);

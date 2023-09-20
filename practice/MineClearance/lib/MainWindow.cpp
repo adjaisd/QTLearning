@@ -118,7 +118,9 @@ void MainWindow::slot_newGame() {
   m_timer->start(1000);
   // 13.初始化场景,启动定时器
   mineScene->initScene();
-  slot_soundChanged();
+  if (MainWindow::count == 0)
+    slot_soundChanged();
+  MainWindow::count++;
 }
 
 /*
@@ -166,7 +168,8 @@ void MainWindow::create_action() {
   connect(colorAction, SIGNAL(triggered(bool)), this,
           SLOT(slot_colorChanged()));
   soundAction = new QAction("声音");
-  soundAction->setCheckable(false);
+  if (MainWindow::count == 0)
+    soundAction->setCheckable(false);
   connect(soundAction, SIGNAL(triggered(bool)), this,
           SLOT(slot_soundChanged()));
 
@@ -398,10 +401,13 @@ void MainWindow::slot_updateHero() {
     heroSettings->endGroup();
   }
   // 5.显示信息，游戏结束，是否继续，如果点继续则重新开始游戏，如果点取消则关闭游戏
-  auto continue_button =
-      QMessageBox::information(this, "游戏结束", "游戏结束，是否继续",
-                               QMessageBox::Ok, QMessageBox::Cancel);
-  if (continue_button == QMessageBox::Ok)
+  QMessageBox msgBox(this);
+  msgBox.setIconPixmap(QPixmap(":/images/cenWin0.png"));
+  msgBox.setWindowTitle("游戏结束");
+  msgBox.setText("游戏结束，是否继续");
+  msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
+  int continueBtn = msgBox.exec();
+  if (continueBtn == QMessageBox::Ok)
     slot_newGame();
   else
     close();
@@ -429,8 +435,8 @@ void MainWindow::slot_displayTime() {
     // 当前游戏用时加 1,并显示，如果场景为声音打开和声音行为被选中，则播放声音
     timeLcd->display(++m_time);
     if (mineScene->m_soundOpen && soundAction->isChecked()) {
-      qDebug() << "play time.wav"
-               << "\tstatus : " << MainWindow::timeSound->status();
+      // qDebug() << "play time.wav"
+      //          << "\tstatus : " << MainWindow::timeSound->status();
       MainWindow::timeSound->play();
     }
   } else {

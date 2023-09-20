@@ -48,6 +48,7 @@ public slots:
   void slot_displayTime();       // 显示时间的槽
 
 public:
+  static int count;
   // 采用临时变量在执行到play()后自动销毁，导致播放异常
   static QSoundEffect *timeSound;
   static QSoundEffect *winSound;

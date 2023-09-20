@@ -88,8 +88,11 @@ void MineItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
       mineScene->openAllItems();
       mineScene->m_isGameOver = true;
       // 弹出扫雷失败消息
-      QMessageBox::information((QWidget *)(scene()->parent()), tr("扫雷失败"),
-                               tr("扫雷失败"));
+      QMessageBox msgBox((QWidget *)(scene()->parent()));
+      msgBox.setIconPixmap(QPixmap(":/images/cenLost0.png"));
+      msgBox.setWindowTitle("扫雷失败");
+      msgBox.setText("扫雷失败");
+      msgBox.exec();
       // 发送重新游戏信号，并返回
       emit sig_restartGame();
       return;
