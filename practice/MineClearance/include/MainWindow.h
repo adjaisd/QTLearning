@@ -47,6 +47,13 @@ public slots:
   void slot_displayMineNum(int); // 显示雷数的槽
   void slot_displayTime();       // 显示时间的槽
 
+public:
+  // 采用临时变量在执行到play()后自动销毁，导致播放异常
+  static QSoundEffect *timeSound;
+  static QSoundEffect *winSound;
+  static QSoundEffect *bongSound;
+  static void initMusic();
+
 private:
   QAction *newAction{};
   QAction *lowLeveAction{};

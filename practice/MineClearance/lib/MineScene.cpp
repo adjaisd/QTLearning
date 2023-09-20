@@ -215,8 +215,11 @@ void MineScene::expandWater(MineItem *t_item) {
     openAllItems();
     m_isGameOver = true;
     // 如果声音打开，则播放声音
-    if (m_soundOpen)
-      playMusic(":/sounds/win.wav");
+    if (m_soundOpen) {
+      qDebug() << "play win.wav"
+               << "\tstatus : " << MainWindow::winSound->status();
+      MainWindow::winSound->play();
+    }
     // 13.发送成功过关的信号
     emit sig_successPassGame();
   }

@@ -13,9 +13,9 @@ enum heightset { HIGHROW = 16, HIGHCOL = 30, HIGHMINENUM = 99 };
 // 5. 图片大小设置
 enum mapset { MAPWIDTH = 25, MAPHEIGHT = 25 };
 
-#include <QSoundEffect>
-#include <QString>
-
-void playMusic(const QString &path);
+// 声音路径
+const char timeSoundPath[] = ":/sounds/time.wav";
+const char winSoundPath[] = ":/sounds/win.wav";
+const char bongSoundPath[] = ":/sounds/bong.wav";
 
 #endif // COMMON_H

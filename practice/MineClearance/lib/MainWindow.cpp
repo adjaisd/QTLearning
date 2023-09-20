@@ -428,10 +428,22 @@ void MainWindow::slot_displayTime() {
   if (!mineScene->m_isGameOver) {
     // 当前游戏用时加 1,并显示，如果场景为声音打开和声音行为被选中，则播放声音
     timeLcd->display(++m_time);
-    if (mineScene->m_soundOpen && soundAction->isChecked())
-      playMusic(":/sounds/time.wav");
+    if (mineScene->m_soundOpen && soundAction->isChecked()) {
+      qDebug() << "play time.wav"
+               << "\tstatus : " << MainWindow::timeSound->status();
+      MainWindow::timeSound->play();
+    }
   } else {
     // 如果游戏结束，则停止计时器
     m_timer->stop();
   }
+}
+
+void MainWindow::initMusic() {
+  MainWindow::timeSound->setSource(QUrl::fromLocalFile(timeSoundPath));
+  MainWindow::timeSound->setLoopCount(2);
+  MainWindow::winSound->setSource(QUrl::fromLocalFile(winSoundPath));
+  MainWindow::winSound->setLoopCount(1);
+  MainWindow::bongSound->setSource(QUrl::fromLocalFile(bongSoundPath));
+  MainWindow::bongSound->setLoopCount(1);
 }

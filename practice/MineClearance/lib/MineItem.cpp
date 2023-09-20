@@ -78,8 +78,12 @@ void MineItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
       setPixmap(QPixmap(":/images/bong/0.png")
                     .scaled(MAPWIDTH, MAPHEIGHT,
                             Qt::KeepAspectRatio)); // 设置为雷的图片
-      if (mineScene->m_soundOpen) // 如果声音打开，则播放声音
-        playMusic(":/sounds/bong.wav");
+      // 如果声音打开，则播放声音
+      if (mineScene->m_soundOpen) {
+        qDebug() << "play bong.wav"
+                 << "\tstatus : " << MainWindow::bongSound->status();
+        MainWindow::bongSound->play();
+      }
       // 打开所有方块，并设置游戏结束
       mineScene->openAllItems();
       mineScene->m_isGameOver = true;
@@ -107,8 +111,11 @@ void MineItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     mineScene->m_remainNoMines--;
     if (mineScene->m_remainNoMines == 0) { // 如果场景中非雷数为0
       // 设置游戏结束，如果声音打开，则播放声音
-      if (mineScene->m_soundOpen)
-        playMusic(":/sounds/win.wav");
+      if (mineScene->m_soundOpen) {
+        qDebug() << "play win.wav"
+                 << "\tstatus : " << MainWindow::winSound->status();
+        MainWindow::winSound->play();
+      }
       // 打开所有方块，发送场景的成功过关信号
       mineScene->openAllItems();
       mineScene->m_isGameOver = true;
