@@ -42,7 +42,7 @@ void MineItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     m_isRightMouse = true;
     if (m_rMouseKeyNum == 1) { // 6.如果右键点击次数为 1
       mineScene->m_signedMineNum++;
-      setPixmap(QPixmap(":/images/flag1.png")
+      setPixmap(QPixmap(flagImagePath)
                     .scaled(MAPWIDTH, MAPHEIGHT, Qt::KeepAspectRatio));
       emit sig_resetMineNum(mineScene->m_signedMineNum); // 发送重设雷数信号
       // 8.如果被标识方块是雷
@@ -51,7 +51,7 @@ void MineItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     } else if (m_rMouseKeyNum == 2) { // 9.如果右键点击次数为2
       // 10.右键标记雷数减1，
       mineScene->m_signedMineNum--;
-      setPixmap(QPixmap(":/images/ques.png")
+      setPixmap(QPixmap(quesImagePath)
                     .scaled(MAPWIDTH, MAPHEIGHT,
                             Qt::KeepAspectRatio)); // 设置图片为问号标记
       // 并发送重设雷数信号
@@ -62,7 +62,7 @@ void MineItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     } else if (m_rMouseKeyNum == 3) { // 12.如果右键点击次数为 3
       // 13.设置方块图片为初始图片，将右键点击次数设为 0
       m_isRightMouse = false;
-      setPixmap(QPixmap(":/images/mine1_0.png")
+      setPixmap(QPixmap(initMineItemImagePath)
                     .scaled(MAPWIDTH, MAPHEIGHT, Qt::KeepAspectRatio));
       m_rMouseKeyNum = 0;
     }
@@ -74,8 +74,7 @@ void MineItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     m_isOpened = true;
     // 如果是雷
     if (m_isMine) {
-      // setPixmap(QPixmap(":/images/bong/0.png"));
-      setPixmap(QPixmap(":/images/bong/0.png")
+      setPixmap(QPixmap(bongImagePath)
                     .scaled(MAPWIDTH, MAPHEIGHT,
                             Qt::KeepAspectRatio)); // 设置为雷的图片
       // 如果声音打开，则播放声音
@@ -89,7 +88,7 @@ void MineItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
       mineScene->m_isGameOver = true;
       // 弹出扫雷失败消息
       QMessageBox msgBox((QWidget *)(scene()->parent()));
-      msgBox.setIconPixmap(QPixmap(":/images/cenLost0.png"));
+      msgBox.setIconPixmap(QPixmap(failImagePath));
       msgBox.setWindowTitle("扫雷失败");
       msgBox.setText("扫雷失败");
       msgBox.exec();
@@ -99,7 +98,7 @@ void MineItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
     } else { // 如果不是雷
       // 如果周围雷数为0,则设置图片，并扩散
       if (m_aroundMineNum == 0) {
-        setPixmap(QPixmap(":/images/mine0_0.png")
+        setPixmap(QPixmap(mineItemImagePath)
                       .scaled(MAPWIDTH, MAPHEIGHT, Qt::KeepAspectRatio));
         mineScene->expandWater(this);
       } else { // 如果周围雷数不为0

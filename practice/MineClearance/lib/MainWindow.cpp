@@ -402,7 +402,7 @@ void MainWindow::slot_updateHero() {
   }
   // 5.显示信息，游戏结束，是否继续，如果点继续则重新开始游戏，如果点取消则关闭游戏
   QMessageBox msgBox(this);
-  msgBox.setIconPixmap(QPixmap(":/images/cenWin0.png"));
+  msgBox.setIconPixmap(QPixmap(winImagePath));
   msgBox.setWindowTitle("游戏结束");
   msgBox.setText("游戏结束，是否继续");
   msgBox.setStandardButtons(QMessageBox::Ok | QMessageBox::Cancel);
@@ -417,8 +417,8 @@ void MainWindow::slot_updateHero() {
 函数功能：显示雷数的槽，显示场景中剩余雷数＝雷总数-已标旗雷数
  */
 void MainWindow::slot_displayMineNum(int mineNum) {
-  qDebug() << "slot_displayMineNum";
-  qDebug() << "mineNum = " << mineNum;
+  qDebug() << "slot_displayMineNum"
+           << "\tmineNum = " << mineNum;
   mineNumLcd->display(mineScene->m_mineNum - mineNum);
 }
 

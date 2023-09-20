@@ -8,6 +8,7 @@
 #include <QGraphicsScene>
 #include <QWidget>
 #include <QPixmap>
+#include <QQueue>
 
 class MineItem;
 class MainWindow;
