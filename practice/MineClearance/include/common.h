@@ -18,6 +18,7 @@ const char timeSoundPath[] = ":/sounds/time.wav"; // 计时
 const char winSoundPath[] = ":/sounds/win.wav";   // 胜利
 const char bongSoundPath[] = ":/sounds/bong.wav"; // 失败
 // 图片路径
+const char iconImagePath[] = ":/images/icon.png";        // icon
 const char flagImagePath[] = ":/images/flag1.png";       // 旗子
 const char quesImagePath[] = ":/images/ques.png";        // 问号
 const char bongImagePath[] = ":/images/bong/0.png";      // 炸弹

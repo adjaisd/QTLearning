@@ -9,7 +9,7 @@
  */
 HeroDialog::HeroDialog(QWidget *parent) : QDialog(parent) {
   setWindowTitle("扫雷英雄榜");
-  setWindowIcon(QIcon(":/images/icon.png"));
+  setWindowIcon(QIcon(iconImagePath));
 
   // label
   auto lowLevel_label = new QLabel(tr("初级"));

@@ -8,6 +8,7 @@
 #include <QSettings>
 #include <QVBoxLayout>
 #include <QMessageBox>
+#include "common.h"
 
 class  HeroDialog : public QDialog {
   Q_OBJECT

@@ -9,7 +9,7 @@
  */
 CustomGameDialog::CustomGameDialog(QWidget *parent) : QDialog(parent) {
   setWindowTitle("自定义游戏");
-  setWindowIcon(QIcon(":/images/icon.png"));
+  setWindowIcon(QIcon(iconImagePath));
 
   // label
   auto col_label = new QLabel(tr("自定义列数"));

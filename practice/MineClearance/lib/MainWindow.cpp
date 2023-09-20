@@ -12,7 +12,7 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   // 1.设置窗口标题，图片，只关闭按钮有效
   setWindowTitle(tr("扫雷"));
-  setWindowIcon(QIcon(":/images/icon.png"));
+  setWindowIcon(QIcon(iconImagePath));
 
   // 3.创建行为
   create_action();
@@ -370,7 +370,6 @@ void MainWindow::slot_updateHero() {
   qDebug() << "slot_updateHero";
   // 1.获取需获取和修改的键名
   QString name_key, time_key;
-  bool flag = true;
   if (mineScene->m_currentLevel == LOWLEVEL) {
     name_key = "low_name";
     time_key = "low_time";
