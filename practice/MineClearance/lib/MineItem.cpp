@@ -49,7 +49,7 @@ void MineItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
       if (m_isMine)
         mineScene->m_rightMineNum++;  // 则标记正确雷数加 1
     } else if (m_rMouseKeyNum == 2) { // 9.如果右键点击次数为2
-      // 10.右键标记雷数减1，
+      // 10.右键标记雷数减1
       mineScene->m_signedMineNum--;
       setPixmap(QPixmap(quesImagePath)
                     .scaled(MAPWIDTH, MAPHEIGHT,
@@ -97,17 +97,14 @@ void MineItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
       return;
     } else { // 如果不是雷
       // 如果周围雷数为0,则设置图片，并扩散
-      if (m_aroundMineNum == 0) {
-        setPixmap(QPixmap(mineItemImagePath)
-                      .scaled(MAPWIDTH, MAPHEIGHT, Qt::KeepAspectRatio));
+      QString picPath =
+          (m_aroundMineNum == 0)
+              ? mineItemImagePath
+              : ":/images/mine1_" + QString::number(m_aroundMineNum) + ".png";
+      setPixmap(
+          QPixmap(picPath).scaled(MAPWIDTH, MAPHEIGHT, Qt::KeepAspectRatio));
+      if (m_aroundMineNum == 0)
         mineScene->expandWater(this);
-      } else { // 如果周围雷数不为0
-        // 则设置方块图片为方块中周围雷数所对应图片
-        auto picPath =
-            ":/images/mine1_" + QString::number(m_aroundMineNum) + ".png";
-        setPixmap(
-            QPixmap(picPath).scaled(MAPWIDTH, MAPHEIGHT, Qt::KeepAspectRatio));
-      }
     }
     // 将场景中非雷数减1
     mineScene->m_remainNoMines--;

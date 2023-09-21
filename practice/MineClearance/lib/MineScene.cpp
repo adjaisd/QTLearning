@@ -142,11 +142,11 @@ void MineScene::openAllItems() {
                             .scaled(MAPWIDTH, MAPHEIGHT, Qt::KeepAspectRatio));
       } else {
         // 4.如果不是雷则将方块图片设置为方块周围雷数所对应图片
-        QString picPath;
-        picPath = (item->m_aroundMineNum == 0)
-                      ? mineItemImagePath
-                      : ":/images/mine1_" +
-                            QString::number(item->m_aroundMineNum) + ".png";
+        QString picPath = (item->m_aroundMineNum == 0)
+                              ? mineItemImagePath
+                              : ":/images/mine1_" +
+                                    QString::number(item->m_aroundMineNum) +
+                                    ".png";
         item->setPixmap(
             QPixmap(picPath).scaled(MAPWIDTH, MAPHEIGHT, Qt::KeepAspectRatio));
       }
@@ -173,57 +173,56 @@ void MineScene::openAllItems() {
 13) 发送成功过关的信号
  */
 //void MineScene::expandWater(MineItem *t_item) {
-// qDebug() << "expandWater";
-// // 1.如果为空，如果是雷则返回
-// if (t_item == nullptr || t_item->m_isMine)
-//   return;
-// // 2.循环查找 8 个方位
-// for (const auto &direction : t_around) {
-//   // 3.计算所找方块在容器中的行，列
-//   int tx = t_item->m_X + direction.x();
-//   int ty = t_item->m_Y + direction.y();
-//   // 4.如果越界,则重新下一次循环
-//   if (tx < 0 || tx >= m_sceneRow || ty < 0 || ty >= m_sceneCol)
-//     continue;
-//   // 5.如果所找方块是雷或者已打开，则重新下一次循环
-//   auto nxtItem = m_itemVec[tx][ty];
-//   if (nxtItem->m_isMine || nxtItem->m_isOpened)
-//     continue;
-//   // 6.如果所找方块的已经右键点击
-//   if (nxtItem->m_rMouseKeyNum > 0)
-//     continue;
-//   // 7.设置所找方块已打开，当前剩余非雷数减 1
-//   nxtItem->m_isOpened = true;
-//   m_remainNoMines--;
-//   // 8.如果所找方块周围雷数为 0，则设置相应图片，并递归查找
-//   if (nxtItem->m_aroundMineNum == 0) {
-//     nxtItem->setPixmap(QPixmap(mineItemImagePath)
-//                            .scaled(MAPWIDTH, MAPHEIGHT,
-//                            Qt::KeepAspectRatio));
-//     // nxtItem->setPixmap(QPixmap(mineItemImagePath));
-//     expandWater(nxtItem);
-//   } else {
-//     // 9.如果所找方块周围雷数不为0,则设置所找方块的图片为所找方块的周围雷数对应图片
-//     auto picPath = ":/images/mine1_" +
-//                    QString::number(nxtItem->m_aroundMineNum) + ".png";
-//     nxtItem->setPixmap(
-//         QPixmap(picPath).scaled(MAPWIDTH, MAPHEIGHT, Qt::KeepAspectRatio));
-//   }
-// }
-// // 10.如果当前剩余非雷数为 0
-// if (m_remainNoMines == 0) {
-//   // 打开所有雷，设置当前游戏结束，
-//   openAllItems();
-//   m_isGameOver = true;
-//   // 如果声音打开，则播放声音
-//   if (m_soundOpen) {
-//     qDebug() << "play win.wav"
-//              << "\tstatus : " << MainWindow::winSound->status();
-//     MainWindow::winSound->play();
-//   }
-//   // 13.发送成功过关的信号
-//   emit sig_successPassGame();
-// }
+//  qDebug() << "expandWater";
+//  // 1.如果为空，如果是雷则返回
+//  if (t_item == nullptr || t_item->m_isMine)
+//    return;
+//  // 2.循环查找 8 个方位
+//  for (const auto &direction : t_around) {
+//    // 3.计算所找方块在容器中的行，列
+//    int tx = t_item->m_X + direction.x();
+//    int ty = t_item->m_Y + direction.y();
+//    // 4.如果越界,则重新下一次循环
+//    if (tx < 0 || tx >= m_sceneRow || ty < 0 || ty >= m_sceneCol)
+//      continue;
+//    // 5.如果所找方块是雷或者已打开，则重新下一次循环
+//    auto nxtItem = m_itemVec[tx][ty];
+//    if (nxtItem->m_isMine || nxtItem->m_isOpened)
+//      continue;
+//    // 6.如果所找方块的已经右键点击
+//    if (nxtItem->m_rMouseKeyNum > 0)
+//      continue;
+//    // 7.设置所找方块已打开，当前剩余非雷数减 1
+//    nxtItem->m_isOpened = true;
+//    m_remainNoMines--;
+//    // 8.如果所找方块周围雷数为 0，则设置相应图片，并递归查找
+//    if (nxtItem->m_aroundMineNum == 0) {
+//      nxtItem->setPixmap(QPixmap(mineItemImagePath)
+//                             .scaled(MAPWIDTH, MAPHEIGHT, Qt::KeepAspectRatio));
+//      // nxtItem->setPixmap(QPixmap(mineItemImagePath));
+//      expandWater(nxtItem);
+//    } else {
+//      // 9.如果所找方块周围雷数不为0,则设置所找方块的图片为所找方块的周围雷数对应图片
+//      auto picPath = ":/images/mine1_" +
+//                     QString::number(nxtItem->m_aroundMineNum) + ".png";
+//      nxtItem->setPixmap(
+//          QPixmap(picPath).scaled(MAPWIDTH, MAPHEIGHT, Qt::KeepAspectRatio));
+//    }
+//  }
+//  // 10.如果当前剩余非雷数为 0
+//  if (m_remainNoMines == 0) {
+//    // 打开所有雷，设置当前游戏结束，
+//    openAllItems();
+//    m_isGameOver = true;
+//    // 如果声音打开，则播放声音
+//    if (m_soundOpen) {
+//      qDebug() << "play win.wav"
+//               << "\tstatus : " << MainWindow::winSound->status();
+//      MainWindow::winSound->play();
+//    }
+//    // 13.发送成功过关的信号
+//    emit sig_successPassGame();
+//  }
 //}
 
 // 采用dfs实现扩散

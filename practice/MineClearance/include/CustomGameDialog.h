@@ -16,17 +16,14 @@ class CustomGameDialog : public QDialog {
   Q_OBJECT
 public:
   explicit CustomGameDialog(QWidget *parent = nullptr);
-
   void readSettings();  // 读自定义游戏设置文件
   void writeSettings(); // 写自定义游戏设置文件
 
 public slots:
-  // 接收确定按钮的槽(slots:)
-  void slot_acceptOk();
+  void slot_acceptOk(); // 接收确定按钮的槽
 
 signals:
-  // 发送自定义游戏行，列，雷数的信号(signals)
-  void signal_sendCustomSet(int, int, int);
+  void signal_sendCustomSet(int, int, int); // 发送自定义游戏行，列，雷数的信号
 
 private:
   QSpinBox *colSpinBox{};     // 列分量框

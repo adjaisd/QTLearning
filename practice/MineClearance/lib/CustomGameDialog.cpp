@@ -24,7 +24,7 @@ CustomGameDialog::CustomGameDialog(QWidget *parent) : QDialog(parent) {
   rowSpinBox->setRange(LOWROWANDCOL, HIGHROW);
   colSpinBox->setRange(LOWROWANDCOL, HIGHCOL);
   mineNumSpinBox->setRange(LOWMINENUM, HIGHMINENUM);
-  // 动态改变类数的上限
+  // 动态改变雷数的上限
   connect(rowSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), this,
           [&](int val) {
             qDebug() << "row当前值：" + QString::number(val);
@@ -79,28 +79,25 @@ CustomGameDialog::CustomGameDialog(QWidget *parent) : QDialog(parent) {
 将读取到的数据设置到相应分量框
  */
 void CustomGameDialog::readSettings() {
-  auto settings = new QSettings("MineOrg", "MineClearance", this);
-
+  auto settings = new QSettings(orgName, appName, this);
   // 1.获取数据: 行、列、雷数量
-  settings->beginGroup("level"); // 难度
+  settings->beginGroup(gameLevelGroupPrefix);
   auto row = settings->value("row", LOWROWANDCOL).toInt();
   auto col = settings->value("col", LOWROWANDCOL).toInt();
-  auto mineNUm = settings->value("mineNum", LOWMINENUM).toInt();
+  auto mineNum = settings->value("mineNum", LOWMINENUM).toInt();
   settings->endGroup();
-
   // 2.更新数据
   rowSpinBox->setValue(row);
   colSpinBox->setValue(col);
-  mineNumSpinBox->setValue(mineNUm);
+  mineNumSpinBox->setValue(mineNum);
 }
 
 /*
 函数功能：写自定义游戏设置文件，将当前的自定义游戏设置保存到注册表
  */
 void CustomGameDialog::writeSettings() {
-  auto settings = new QSettings("MineOrg", "MineClearance", this);
-
-  settings->beginGroup("level");
+  auto settings = new QSettings(orgName, appName, this);
+  settings->beginGroup(gameLevelGroupPrefix);
   settings->setValue("row", rowSpinBox->value());
   settings->setValue("col", colSpinBox->value());
   settings->setValue("mineNum", mineNumSpinBox->value());
@@ -115,9 +112,7 @@ void CustomGameDialog::writeSettings() {
  */
 void CustomGameDialog::slot_acceptOk() {
   writeSettings();
-  // QMessageBox::information(this, tr("success"), tr("自定义游戏配置修改成功"),
-  //                          QMessageBox::Ok);
-  //  发送自定义游戏信号
+  // 发送自定义游戏信号
   emit signal_sendCustomSet(rowSpinBox->value(), colSpinBox->value(),
                             mineNumSpinBox->value());
   close();

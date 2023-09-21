@@ -65,19 +65,17 @@ HeroDialog::HeroDialog(QWidget *parent) : QDialog(parent) {
 函数功能：读英雄榜数据并设置到当前界面
  */
 void HeroDialog::readSettings() {
-  auto settings = new QSettings("MineOrg", "MineClearance", this);
-
+  auto settings = new QSettings(orgName, appName, this);
   // 1.获取数据: 行、列、雷数量
-  settings->beginGroup("hero");
+  settings->beginGroup(heroGroupPrefix);
   auto low_time = settings->value("low_time", 999).toInt();
   auto middle_time = settings->value("middle_time", 999).toInt();
   auto high_time = settings->value("high_time", 999).toInt();
-
+  // 获取历史记录
   auto low_name = settings->value("low_name", "匿名").toString();
   auto middle_name = settings->value("middle_name", "匿名").toString();
   auto high_name = settings->value("high_name", "匿名").toString();
   settings->endGroup();
-
   // 2.更新数据
   lowRecordTimeLabel->setText(QString().setNum(low_time));
   middleRecordTimeLabel->setText(QString().setNum(middle_time));
@@ -108,8 +106,8 @@ void HeroDialog::init_heroRecord() {
 初始化英雄榜
  */
 void HeroDialog::slot_reset() {
-  auto settings = new QSettings("MineOrg", "MineClearance", this);
-  settings->beginGroup("hero");
+  auto settings = new QSettings(orgName, appName, this);
+  settings->beginGroup(heroGroupPrefix);
   settings->setValue("low_time", 999);
   settings->setValue("middle_time", 999);
   settings->setValue("high_time", 999);

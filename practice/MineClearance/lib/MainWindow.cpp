@@ -43,29 +43,36 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
  */
 void MainWindow::slot_newGame() {
   // 1.清理旧对象
-  centralWidget->deleteLater();
-  mineView->deleteLater();
-  mineScene->deleteLater();
-  mineNumLcd->deleteLater();
-  smileButton->deleteLater();
-  timeLcd->deleteLater();
-  m_timer->deleteLater();
+  if (centralWidget)
+    centralWidget->deleteLater();
+  if (mineView)
+    mineView->deleteLater();
+  if (mineScene)
+    mineScene->deleteLater();
+  if (mineNumLcd)
+    mineNumLcd->deleteLater();
+  if (smileButton)
+    smileButton->deleteLater();
+  if (timeLcd)
+    timeLcd->deleteLater();
+  if (m_timer)
+    m_timer->deleteLater();
   // 2.主界面
   centralWidget = new QWidget(this);
   setCentralWidget(centralWidget);
+
   // 3.创建调色板，雷数 LCD，时间 LCD，并设置 LCD 上的颜色
-  QPalette textPalette;
-  textPalette.setColor(QPalette::Normal, QPalette::WindowText, Qt::red);
+  QPalette lcdPalette;
   mineNumLcd = new QLCDNumber(centralWidget);
-  mineNumLcd->setPalette(textPalette);
+  mineNumLcd->setPalette(lcdPalette);
   mineNumLcd->setDigitCount(3);
   timeLcd = new QLCDNumber(centralWidget);
-  timeLcd->setPalette(textPalette);
+  timeLcd->setPalette(lcdPalette);
   timeLcd->setDigitCount(3);
-
+  lcdPalette.setColor(QPalette::Normal, QPalette::WindowText, Qt::red);
   // 4.创建笑脸按钮，并设置图片，并将信号连接到开始新游戏槽
   smileButton = new QPushButton(centralWidget);
-  smileButton->setIcon(QPixmap(":/images/cenNormal0.png"));
+  smileButton->setIcon(QPixmap(smileImagePath));
   connect(smileButton, SIGNAL(clicked(bool)), this, SLOT(slot_newGame()));
   // 5.创建水平布局，将雷数 LCD，笑脸按钮，时间 LCD，加入到水平布局
   auto hLayout = new QHBoxLayout;
@@ -90,7 +97,6 @@ void MainWindow::slot_newGame() {
   vLayout->addLayout(hLayout);
   vLayout->addWidget(mineView);
   setCentralWidget(centralWidget);
-
   // 9.根据图片大小和行，列数据设置场景，主视图，主窗口大小
   mineScene->setSceneRect(0, 0, mineScene->m_sceneCol * MAPWIDTH,
                           mineScene->m_sceneRow * MAPHEIGHT);
@@ -118,7 +124,7 @@ void MainWindow::slot_newGame() {
   m_timer->start(1000);
   // 13.初始化场景,启动定时器
   mineScene->initScene();
-  if (MainWindow::count == 0)
+  if (MainWindow::count == 0) // 首场游戏默认开启声音
     slot_soundChanged();
   MainWindow::count++;
 }
@@ -157,28 +163,22 @@ void MainWindow::create_action() {
   middleLeveAction->setCheckable(true);
   highLeveAction->setCheckable(true);
   customAction->setCheckable(true);
-
   lowLeveAction->setChecked(true);
-
   connect(levelActionGroup, SIGNAL(triggered(QAction *)), this,
           SLOT(slot_newGameByLevel(QAction *)));
-
   colorAction = new QAction("颜色");
   colorAction->setCheckable(true);
   connect(colorAction, SIGNAL(triggered(bool)), this,
           SLOT(slot_colorChanged()));
   soundAction = new QAction("声音");
-  if (MainWindow::count == 0)
+  if (MainWindow::count == 0) // 首场游戏生效
     soundAction->setCheckable(false);
   connect(soundAction, SIGNAL(triggered(bool)), this,
           SLOT(slot_soundChanged()));
-
   heroAction = new QAction("英雄榜");
   connect(heroAction, SIGNAL(triggered(bool)), this, SLOT(slot_heroChecked()));
-
   exitAction = new QAction("退出");
   connect(exitAction, SIGNAL(triggered(bool)), this, SLOT(close()));
-
   aboutAction = new QAction("关于");
   connect(aboutAction, SIGNAL(triggered(bool)), this, SLOT(slot_about()));
 }
@@ -187,10 +187,9 @@ void MainWindow::create_action() {
 函数功能：读当前游戏设置，并设置到场景的行，列，雷数，级别
  */
 void MainWindow::readSettings() {
-  auto settings = new QSettings("MineOrg", "MineClearance", this);
-
+  auto settings = new QSettings(orgName, appName, this);
   // 1.获取数据: 行、列、雷数量
-  settings->beginGroup("level"); // 难度
+  settings->beginGroup(gameLevelGroupPrefix);
   auto row = settings->value("row", LOWROWANDCOL).toInt();
   auto col = settings->value("col", LOWROWANDCOL).toInt();
   auto mineNum = settings->value("mineNum", LOWMINENUM).toInt();
@@ -237,12 +236,12 @@ void MainWindow::create_menu() {
  */
 void MainWindow::writeSettings() {
   qDebug() << "writeSettings";
-  qDebug() << "row = " << mineScene->m_sceneRow << "\t"
-           << "col = " << mineScene->m_sceneCol << "\t"
-           << "level = " << mineScene->m_currentLevel << "\t"
-           << "mineNum = " << mineScene->m_mineNum;
-  auto settings = new QSettings("MineOrg", "MineClearance", this);
-  settings->beginGroup("level");
+  // qDebug() << "row = " << mineScene->m_sceneRow
+  //          << "\tcol = " << mineScene->m_sceneCol
+  //          << "\tlevel = " << mineScene->m_currentLevel
+  //          << "\tmineNum = " << mineScene->m_mineNum;
+  auto settings = new QSettings(orgName, appName, this);
+  settings->beginGroup(gameLevelGroupPrefix);
   settings->setValue("row", mineScene->m_sceneRow);
   settings->setValue("col", mineScene->m_sceneCol);
   settings->setValue("mineNum", mineScene->m_mineNum);
@@ -263,25 +262,25 @@ void MainWindow::writeSettings() {
 void MainWindow::slot_newGameByLevel(QAction *action) {
   qDebug() << "slot_newGameByLevel";
   if (action == lowLeveAction) {
-    qDebug() << "lowLeveAction";
+    // qDebug() << "lowLeveAction";
     mineScene->m_mineNum = LOWMINENUM;
     mineScene->m_sceneRow = LOWROWANDCOL;
     mineScene->m_sceneCol = LOWROWANDCOL;
     mineScene->m_currentLevel = LOWLEVEL;
   } else if (action == middleLeveAction) {
-    qDebug() << "middleLeveAction";
+    // qDebug() << "middleLeveAction";
     mineScene->m_mineNum = MIDDLEMINENUM;
     mineScene->m_sceneRow = MIDDLEROWANDCOL;
     mineScene->m_sceneCol = MIDDLEROWANDCOL;
     mineScene->m_currentLevel = MIDDLELEVEL;
   } else if (action == highLeveAction) {
-    qDebug() << "highLeveAction";
+    // qDebug() << "highLeveAction";
     mineScene->m_mineNum = HIGHMINENUM;
     mineScene->m_sceneRow = HIGHROW;
     mineScene->m_sceneCol = HIGHCOL;
     mineScene->m_currentLevel = HIGHLEVEL;
   } else if (action == customAction) {
-    qDebug() << "customAction";
+    // qDebug() << "customAction";
     m_timer->stop();
     CustomGameDialog customGameDialog(this);
     connect(&customGameDialog, SIGNAL(signal_sendCustomSet(int, int, int)),
@@ -303,9 +302,9 @@ void MainWindow::slot_newGameByLevel(QAction *action) {
  */
 void MainWindow::slot_acceptCustomVal(int row, int col, int mineNum) {
   qDebug() << "slot_acceptCustomVal";
-  qDebug() << "row = " << row << "\t"
-           << "col = " << col << "\t"
-           << "mineNum = " << mineNum;
+  // qDebug() << "row = " << row << "\t"
+  //          << "col = " << col << "\t"
+  //          << "mineNum = " << mineNum;
   mineScene->m_mineNum = mineNum;
   mineScene->m_sceneRow = row;
   mineScene->m_sceneCol = col;
@@ -333,7 +332,6 @@ void MainWindow::slot_soundChanged() {
     soundAction->setChecked(true);
     mineScene->m_soundOpen = true;
   }
-  qDebug() << "m_soundOpen = " << mineScene->m_soundOpen;
 }
 
 /*
@@ -383,8 +381,8 @@ void MainWindow::slot_updateHero() {
   // 如果不是自定义游戏
   if (mineScene->m_currentLevel != CUSTOMLEVEL) {
     // 2.获取记录时间
-    auto heroSettings = new QSettings("MineOrg", "MineClearance", this);
-    heroSettings->beginGroup("hero");
+    auto heroSettings = new QSettings(orgName, appName, this);
+    heroSettings->beginGroup(heroGroupPrefix);
     auto time = heroSettings->value(time_key, 999).toInt();
     // 3.超记录则写入注册表
     if (m_time < time) {
@@ -444,6 +442,9 @@ void MainWindow::slot_displayTime() {
   }
 }
 
+/*
+函数功能：初始化音乐
+ */
 void MainWindow::initMusic() {
   MainWindow::timeSound->setSource(QUrl::fromLocalFile(timeSoundPath));
   MainWindow::timeSound->setLoopCount(2);
