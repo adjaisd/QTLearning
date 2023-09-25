@@ -72,6 +72,10 @@ void MineItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
       return;
     // 设置此方块已打开
     m_isOpened = true;
+    mineScene->m_leftMouseNum++;
+    // 是雷且左击次数小于等于n(n=1，n大于1时需确保与上次点击不能相邻)，则重新布雷
+    if (m_isMine && mineScene->m_leftMouseNum <= 1)
+      mineScene->randomMine(this);
     // 如果是雷
     if (m_isMine) {
       setPixmap(QPixmap(bongImagePath)

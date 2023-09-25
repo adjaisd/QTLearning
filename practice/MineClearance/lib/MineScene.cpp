@@ -98,9 +98,8 @@ void MineScene::initScene() {
 void MineScene::countAroundMines(MineItem *t_item) {
   // qDebug() << "countAroundMines";
   //  1.如果为空或者不是雷，则返回
-  if (t_item == nullptr || !t_item->m_isMine) {
+  if (t_item == nullptr || !t_item->m_isMine)
     return;
-  }
   // 2.循环查找 8 个方位
   for (const auto &direction : t_around) {
     // 3.计算所找方块在容器中的行，列
@@ -172,58 +171,59 @@ void MineScene::openAllItems() {
 12) 打开所有雷
 13) 发送成功过关的信号
  */
-//void MineScene::expandWater(MineItem *t_item) {
-//  qDebug() << "expandWater";
-//  // 1.如果为空，如果是雷则返回
-//  if (t_item == nullptr || t_item->m_isMine)
-//    return;
-//  // 2.循环查找 8 个方位
-//  for (const auto &direction : t_around) {
-//    // 3.计算所找方块在容器中的行，列
-//    int tx = t_item->m_X + direction.x();
-//    int ty = t_item->m_Y + direction.y();
-//    // 4.如果越界,则重新下一次循环
-//    if (tx < 0 || tx >= m_sceneRow || ty < 0 || ty >= m_sceneCol)
-//      continue;
-//    // 5.如果所找方块是雷或者已打开，则重新下一次循环
-//    auto nxtItem = m_itemVec[tx][ty];
-//    if (nxtItem->m_isMine || nxtItem->m_isOpened)
-//      continue;
-//    // 6.如果所找方块的已经右键点击
-//    if (nxtItem->m_rMouseKeyNum > 0)
-//      continue;
-//    // 7.设置所找方块已打开，当前剩余非雷数减 1
-//    nxtItem->m_isOpened = true;
-//    m_remainNoMines--;
-//    // 8.如果所找方块周围雷数为 0，则设置相应图片，并递归查找
-//    if (nxtItem->m_aroundMineNum == 0) {
-//      nxtItem->setPixmap(QPixmap(mineItemImagePath)
-//                             .scaled(MAPWIDTH, MAPHEIGHT, Qt::KeepAspectRatio));
-//      // nxtItem->setPixmap(QPixmap(mineItemImagePath));
-//      expandWater(nxtItem);
-//    } else {
-//      // 9.如果所找方块周围雷数不为0,则设置所找方块的图片为所找方块的周围雷数对应图片
-//      auto picPath = ":/images/mine1_" +
-//                     QString::number(nxtItem->m_aroundMineNum) + ".png";
-//      nxtItem->setPixmap(
-//          QPixmap(picPath).scaled(MAPWIDTH, MAPHEIGHT, Qt::KeepAspectRatio));
-//    }
-//  }
-//  // 10.如果当前剩余非雷数为 0
-//  if (m_remainNoMines == 0) {
-//    // 打开所有雷，设置当前游戏结束，
-//    openAllItems();
-//    m_isGameOver = true;
-//    // 如果声音打开，则播放声音
-//    if (m_soundOpen) {
-//      qDebug() << "play win.wav"
-//               << "\tstatus : " << MainWindow::winSound->status();
-//      MainWindow::winSound->play();
-//    }
-//    // 13.发送成功过关的信号
-//    emit sig_successPassGame();
-//  }
-//}
+// void MineScene::expandWater(MineItem *t_item) {
+//   qDebug() << "expandWater";
+//   // 1.如果为空，如果是雷则返回
+//   if (t_item == nullptr || t_item->m_isMine)
+//     return;
+//   // 2.循环查找 8 个方位
+//   for (const auto &direction : t_around) {
+//     // 3.计算所找方块在容器中的行，列
+//     int tx = t_item->m_X + direction.x();
+//     int ty = t_item->m_Y + direction.y();
+//     // 4.如果越界,则重新下一次循环
+//     if (tx < 0 || tx >= m_sceneRow || ty < 0 || ty >= m_sceneCol)
+//       continue;
+//     // 5.如果所找方块是雷或者已打开，则重新下一次循环
+//     auto nxtItem = m_itemVec[tx][ty];
+//     if (nxtItem->m_isMine || nxtItem->m_isOpened)
+//       continue;
+//     // 6.如果所找方块的已经右键点击
+//     if (nxtItem->m_rMouseKeyNum > 0)
+//       continue;
+//     // 7.设置所找方块已打开，当前剩余非雷数减 1
+//     nxtItem->m_isOpened = true;
+//     m_remainNoMines--;
+//     // 8.如果所找方块周围雷数为 0，则设置相应图片，并递归查找
+//     if (nxtItem->m_aroundMineNum == 0) {
+//       nxtItem->setPixmap(QPixmap(mineItemImagePath)
+//                              .scaled(MAPWIDTH, MAPHEIGHT,
+//                              Qt::KeepAspectRatio));
+//       // nxtItem->setPixmap(QPixmap(mineItemImagePath));
+//       expandWater(nxtItem);
+//     } else {
+//       // 9.如果所找方块周围雷数不为0,则设置所找方块的图片为所找方块的周围雷数对应图片
+//       auto picPath = ":/images/mine1_" +
+//                      QString::number(nxtItem->m_aroundMineNum) + ".png";
+//       nxtItem->setPixmap(
+//           QPixmap(picPath).scaled(MAPWIDTH, MAPHEIGHT, Qt::KeepAspectRatio));
+//     }
+//   }
+//   // 10.如果当前剩余非雷数为 0
+//   if (m_remainNoMines == 0) {
+//     // 打开所有雷，设置当前游戏结束，
+//     openAllItems();
+//     m_isGameOver = true;
+//     // 如果声音打开，则播放声音
+//     if (m_soundOpen) {
+//       qDebug() << "play win.wav"
+//                << "\tstatus : " << MainWindow::winSound->status();
+//       MainWindow::winSound->play();
+//     }
+//     // 13.发送成功过关的信号
+//     emit sig_successPassGame();
+//   }
+// }
 
 // 采用dfs实现扩散
 void MineScene::expandWater(MineItem *t_item) {
@@ -282,5 +282,64 @@ void MineScene::expandWater(MineItem *t_item) {
     }
     // 13.发送成功过关的信号
     emit sig_successPassGame();
+  }
+}
+
+void MineScene::randomMine(MineItem *oldMine) {
+  qDebug() << "randomMine"
+           << "\t" << m_leftMouseNum;
+  // 为空、非雷则return
+  if (oldMine == nullptr || !oldMine->m_isMine)
+    return;
+  // 找到一个非雷的方格
+  int tx, ty;
+  MineItem *newMine;
+  while (true) {
+    tx = rand() % m_sceneRow;
+    ty = rand() % m_sceneCol;
+    if (tx < 0 || tx >= m_sceneRow || ty < 0 || ty >= m_sceneCol)
+      continue;
+    newMine = m_itemVec[tx][ty];
+    if (newMine->m_isOpened) // 已打开
+      continue;
+    // 在旧方块周围跳过
+    if (abs(newMine->m_X - oldMine->m_X) <= 1 &&
+        abs(newMine->m_Y - oldMine->m_Y) <= 1)
+      continue;
+    if (!newMine->m_isMine) // 不是雷
+      break;
+  }
+  qDebug() << "oldMine: x = " << oldMine->m_X << "\ty = " << oldMine->m_Y;
+  qDebug() << "newMine: x = " << newMine->m_X << "\ty = " << newMine->m_Y;
+  // 新方格方格变为雷，并更新周围方块的周围雷数
+  newMine->m_isMine = true;
+  newMine->m_aroundMineNum = 0; // 新方块周围雷数为0
+  for (const auto &direction : t_around) {
+    int nxt_x = newMine->m_X + direction.x();
+    int nxt_y = newMine->m_Y + direction.y();
+    if (nxt_x < 0 || nxt_x >= m_sceneRow || nxt_y < 0 || nxt_y >= m_sceneCol)
+      continue;
+    auto nxtMine = m_itemVec[nxt_x][nxt_y];
+    if (nxtMine->m_isMine) // 是雷
+      continue;
+    nxtMine->m_aroundMineNum++; // 更新周围雷数
+  }
+  // 旧方格变为非雷，并更新周围雷数
+  oldMine->m_isMine = false;
+  oldMine->m_aroundMineNum = 0;
+  for (const auto &direction : t_around) {
+    int nxt_x = oldMine->m_X + direction.x();
+    int nxt_y = oldMine->m_Y + direction.y();
+    if (nxt_x < 0 || nxt_x >= m_sceneRow || nxt_y < 0 || nxt_y >= m_sceneCol)
+      continue;
+    auto nxtMine = m_itemVec[nxt_x][nxt_y];
+    // qDebug() << "nxtMine: x = " << nxt_x << "\ty = " << nxt_y;
+    if (nxtMine->m_isMine) { // 如果周围方格是雷，则周围雷数+1
+      // qDebug() << "oldMine->m_aroundMineNum++;";
+      oldMine->m_aroundMineNum++;
+    } else { // 周围方格非雷，则更新周围方格的周围雷数
+      // qDebug() << "nxtMine->m_aroundMineNum--;";
+      nxtMine->m_aroundMineNum--;
+    }
   }
 }

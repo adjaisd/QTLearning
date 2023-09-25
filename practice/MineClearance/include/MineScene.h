@@ -6,9 +6,9 @@
 #include "MineItem.h"
 #include "common.h"
 #include <QGraphicsScene>
-#include <QWidget>
 #include <QPixmap>
 #include <QQueue>
+#include <QWidget>
 
 class MineItem;
 class MainWindow;
@@ -21,6 +21,7 @@ public:
   void countAroundMines(MineItem *t_item); // 统计方块周围的雷数
   void openAllItems();                     // 打开所有的方块
   void expandWater(MineItem *t_item);      // 扩散函数
+  void randomMine(MineItem *oldMine); // 消除一个并随机生成一个雷
 
 signals:
   void sig_successPassGame();        // 游戏成功过关信号
@@ -39,6 +40,7 @@ public:
   bool m_isGameOver{};   // 游戏是否结束
   int m_remainNoMines{}; // 剩余非雷数
   bool m_soundOpen{};    // 声音开关: true: 打开声音 false: 关闭声音
+  int m_leftMouseNum{};  // 鼠标左击次数
 };
 
 #endif // MINESCENE_H
