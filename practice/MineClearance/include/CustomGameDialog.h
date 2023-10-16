@@ -1,4 +1,3 @@
-// 自定义游戏类
 #ifndef CUSTOMGAMEDIALOG_H
 #define CUSTOMGAMEDIALOG_H
 
@@ -12,15 +11,57 @@
 #include <QSpinBox>
 #include <QWidget>
 
+/*
+ * Class:       CustomGameDialog
+ * Description: 自定义游戏对话窗口类
+ * Author:      TheOne1221
+ * Version:     1.0.0
+ * Date:        2023.9.20
+ */
 class CustomGameDialog : public QDialog {
   Q_OBJECT
 public:
+  /*
+   * Function:    CustomGameDialog
+   * Description: 自定义窗口构造函数，用于初始化对话窗口
+   * Param:       parent
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
   explicit CustomGameDialog(QWidget *parent = nullptr);
-  void readSettings();  // 读自定义游戏设置文件
-  void writeSettings(); // 写自定义游戏设置文件
+  /*
+   * Function:    readSettings
+   * Description: 读自定义游戏设置文件
+   * Param:       无
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void readSettings();
+  /*
+   * Function:    writeSettings
+   * Description: 写自定义游戏设置文件
+   * Param:       无
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void writeSettings();
 
 public slots:
-  void slot_acceptOk(); // 接收确定按钮的槽
+  /*
+   * Function:    slot_acceptOk
+   * Description: 接收确定按钮的槽
+   * Param:       无
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void slot_acceptOk();
 
 signals:
   void signal_sendCustomSet(int, int, int); // 发送自定义游戏行，列，雷数的信号

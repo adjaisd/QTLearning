@@ -1,4 +1,3 @@
-// 游戏场景类
 #ifndef MINESCENE_H
 #define MINESCENE_H
 
@@ -12,16 +11,76 @@
 
 class MineItem;
 class MainWindow;
+
+/*
+ * Class:       MineScene
+ * Description: 游戏场景窗口类
+ * Author:      TheOne1221
+ * Version:     1.0.0
+ * Date:        2023.9.20
+ */
 class MineScene : public QGraphicsScene {
   Q_OBJECT
 public:
+  /*
+   * Function:    MineScene
+   * Description: 游戏场景窗口类构造函数
+   * Param:       parent
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
   explicit MineScene(QWidget *parent = nullptr);
-
-  void initScene();                        // 初始化游戏场景
-  void countAroundMines(MineItem *t_item); // 统计方块周围的雷数
-  void openAllItems();                     // 打开所有的方块
-  void expandWater(MineItem *t_item);      // 扩散函数
-  void randomMine(MineItem *oldMine); // 消除一个并随机生成一个雷
+  /*
+   * Function:    initScene
+   * Description: 初始化游戏场景
+   * Param:       无
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void initScene();
+  /*
+   * Function:    countAroundMines
+   * Description: 统计方块周围的雷数
+   * Param:       t_item(方格对象指针)
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void countAroundMines(MineItem *t_item);
+  /*
+   * Function:    openAllItems
+   * Description: 打开所有的方块
+   * Param:       无
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void openAllItems();
+  /*
+   * Function:    expandWater
+   * Description: 扩散函数
+   * Param:       t_item(方格对象指针)
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void expandWater(MineItem *t_item);
+  /*
+   * Function:    randomMine
+   * Description: 消除一个并随机生成一个雷
+   * Param:       oldMine(有雷的方格对象指针)
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void randomMine(MineItem *oldMine);
 
 signals:
   void sig_successPassGame();        // 游戏成功过关信号

@@ -225,12 +225,13 @@ void MineScene::openAllItems() {
 //   }
 // }
 
-// 采用dfs实现扩散
+// 采用bfs实现扩散
 void MineScene::expandWater(MineItem *t_item) {
   qDebug() << "expandWater";
   // 1.如果为空，如果是雷则返回
   if (t_item == nullptr || t_item->m_isMine)
     return;
+  // 2.待扩散的方格队列
   QQueue<MineItem *> queue;
   queue.append(t_item);
   while (!queue.isEmpty()) {

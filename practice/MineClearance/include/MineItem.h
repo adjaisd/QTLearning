@@ -1,4 +1,3 @@
-// 游戏方块类
 #ifndef MINEITEM_H
 #define MINEITEM_H
 
@@ -9,12 +8,35 @@
 #include <QObject>
 #include <QWidget>
 
+/*
+ * Class:       MineItem
+ * Description: 游戏场景中的方格类
+ * Author:      TheOne1221
+ * Version:     1.0.0
+ * Date:        2023.9.20
+ */
 class MineItem : public QObject, public QGraphicsPixmapItem {
   Q_OBJECT
 public:
+  /*
+   * Function:    MineScene
+   * Description: 游戏场景中的方格类构造函数
+   * Param:       t_x(横坐标)、t_y(纵坐标)、itemPixmap(初始化图片)、parent
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
   explicit MineItem(int t_x, int t_y, const QPixmap &itemPixmap,
                     QGraphicsItem *parent = nullptr);
-  // 鼠标点击事件
+  /*
+   * Function:    MineScene
+   * Description: 鼠标点击事件
+   * Param:       event(鼠标事件)
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
   void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
 signals:

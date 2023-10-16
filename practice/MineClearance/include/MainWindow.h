@@ -1,4 +1,3 @@
-// 主程序窗口类
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -23,29 +22,168 @@
 #include <QTimer>
 
 class MineScene;
+
+/*
+ * Class:       MainWindow
+ * Description: 游戏主窗口类
+ * Author:      TheOne1221
+ * Version:     1.0.0
+ * Date:        2023.9.20
+ */
 class MainWindow : public QMainWindow {
   Q_OBJECT
 public:
+  /*
+   * Function:    MainWindow
+   * Description: 游戏主窗口类构造函数
+   * Param:       parent
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
   explicit MainWindow(QWidget *parent = nullptr);
-
-  void create_action(); // 创建行为
-  void create_menu();   // 创建菜单
-  void readSettings();  // 读当前游戏设置
-  void writeSettings(); // 写当前游戏设置
+  /*
+   * Function:    create_action
+   * Description: 创建行为
+   * Param:       无
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void create_action();
+  /*
+   * Function:    create_menu
+   * Description: 创建菜单
+   * Param:       无
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void create_menu();
+  /*
+   * Function:    readSettings
+   * Description: 读当前游戏设置
+   * Param:       无
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void readSettings();
+  /*
+   * Function:    writeSettings
+   * Description: 写当前游戏设置
+   * Param:       无
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void writeSettings();
 
 public slots:
-  void slot_newGame(); // 开始新游戏槽
-  // 点击游戏级别行为开始新游戏槽
-  void slot_newGameByLevel(QAction *);
-  // 接收自定义游戏设置槽
+  /*
+   * Function:    slot_newGame
+   * Description: 开始新游戏槽
+   * Param:       无
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void slot_newGame();
+  /*
+   * Function:    slot_newGameByLevel
+   * Description: 点击游戏级别行为开始新游戏槽
+   * Param:       action(菜单点击单独事件指针)
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void slot_newGameByLevel(QAction *action);
+  /*
+   * Function:    slot_acceptCustomVal
+   * Description: 接收自定义游戏设置槽
+   * Param:       row(行数)、col(列数)、mineNum(雷数)
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
   void slot_acceptCustomVal(int row, int col, int mineNum);
-  void slot_colorChanged();      // 设置颜色的槽
-  void slot_soundChanged();      // 设置声音的槽
-  void slot_heroChecked();       // 显示英雄榜的槽
-  void slot_about();             // 显示 about 扫雷的槽
-  void slot_updateHero();        // 更新英雄榜的槽
-  void slot_displayMineNum(int); // 显示雷数的槽
-  void slot_displayTime();       // 显示时间的槽
+  /*
+   * Function:    slot_colorChanged
+   * Description: 设置颜色的槽
+   * Param:       无
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void slot_colorChanged();
+  /*
+   * Function:    slot_soundChanged
+   * Description: 设置声音的槽
+   * Param:       无
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void slot_soundChanged();
+  /*
+   * Function:    slot_heroChecked
+   * Description: 显示英雄榜的槽
+   * Param:       无
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void slot_heroChecked();
+  /*
+   * Function:    slot_about
+   * Description: 显示about扫雷的槽
+   * Param:       无
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void slot_about();
+  /*
+   * Function:    slot_updateHero
+   * Description: 更新英雄榜的槽
+   * Param:       无
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void slot_updateHero();
+  /*
+   * Function:    slot_displayMineNum
+   * Description: 显示雷数的槽
+   * Param:       mineNum(已标旗雷数)
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void slot_displayMineNum(int mineNum);
+  /*
+   * Function:    slot_displayTime
+   * Description: 显示时间的槽
+   * Param:       无
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
+  void slot_displayTime();
 
 public:
   static int count;
@@ -53,6 +191,15 @@ public:
   static QSoundEffect *timeSound;
   static QSoundEffect *winSound;
   static QSoundEffect *bongSound;
+  /*
+   * Function:    initMusic
+   * Description: 初始化音乐
+   * Param:       无
+   * Return:      void
+   * Author:      TheOne1221
+   * Version:     1.0.0
+   * Date:        2023.9.20
+   */
   static void initMusic();
 
 private:
